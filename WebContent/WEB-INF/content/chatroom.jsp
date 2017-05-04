@@ -193,10 +193,11 @@ body {
             	if(data.text!="${sessionScope.username}")
             	{	
             		//显示用户头像及用户的具体信息
-            		//$("#users").append('<a href="#" onclick="talk(this)" class="list-group-item" >'+ '<img  class="userImg1" src="image/toto1.png" alt="用户头像" /><div style="float:left">'
-            		//		 + data.text+'</a');
+            		 // $("#users").append('<a href="#" onclick="talk(this)" class="list-group-item" >'+ '<img  class="userImg1" src="image/toto1.png" alt="用户头像" /><div style="float:left">'
+            			//	 + data.text+'</a');
             		
-            		$("#users").append('<a href="#" onclick="talk(this)" class="list-group-item">'+data.text+'</a>');
+            		$("#users").append('<div href="#"  class="list-group-item">'+ '<img class="userImg1" src="image/toto1.png" alt="用户头像" />'+data.text+'</div>');
+            		//onclick="talk(this)"
             		//alert(data.text+"上线了");
             	}
             }else if(data.from==-2){//下线消息
@@ -211,7 +212,9 @@ body {
         $.post("onlineusers",function(data){
     		for(var i=0;i<data.length;i++)
     			//$("#users").append('<a href="#" onclick="talk(this)" class="list-group-item" >'+ '<img class="userImg1" src="image/toto1.png" alt="用户头像" /></a>'+data[i]+'</a>');
-    			$("#users").append('<a href="#" onclick="talk(this)" class="list-group-item">'+data[i]+'</a>');
+    			
+    			$("#users").append('<div href="#"  class="list-group-item">'+ '<img class="userImg1" src="image/toto1.png" alt="用户头像" />' +data[i]+'</div>');
+    			//onclick="talk(this)"
         });
         
         $("#broadcast").click(function(){
