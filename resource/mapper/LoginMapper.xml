@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.bangba.chat.mapper.LoginMapper">
+	<resultMap type="com.bangba.chat.pojo.Staff" id="staffMap">
+        <result column="username" property="username"/>
+        <result column="password" property="password"/>
+        <result column="email" property="email"/>
+         <result column="type" jdbcType="VARCHAR" property="type" />
+	    <result column="level" jdbcType="VARCHAR" property="level" />
+	    <result column="score" jdbcType="TINYINT" property="score" />
+	    <result column="workNo" jdbcType="VARCHAR" property="workNo" />
+    </resultMap>
+    <select id="getpwdbyname" parameterType="String"  resultMap="staffMap">
+    	select * from staff where binary username=#{name}
+    </select>
+    
+    <select id="getPwdbynameAndEmail" parameterType="String"  resultMap="staffMap">
+    	select * from staff where binary username=#{name} and email=#{email}
+    </select>
+    
+    <select id="getnamebyid" parameterType="long"  resultMap="staffMap">
+    	select * from staff where staff_id=#{id}
+    </select>
+    
+    
+    
+    <insert id="regist" parameterType="com.bangba.chat.pojo.Staff">
+    insert into staff (staff_id, first_name, last_name, 
+       email, store_id, 
+      active, username, password, 
+      last_update, role, nameinfo, 
+      unit, sex, depart, 
+      birthday, location, iphone, 
+      picture)
+    values (#{staffId,jdbcType=TINYINT}, #{firstName,jdbcType=VARCHAR}, #{lastName,jdbcType=VARCHAR}, 
+     #{email,jdbcType=VARCHAR}, #{storeId,jdbcType=TINYINT}, 
+      #{active,jdbcType=BIT}, #{username,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR}, 
+      #{lastUpdate,jdbcType=TIMESTAMP}, #{role,jdbcType=VARCHAR}, #{nameInfo,jdbcType=VARCHAR}, 
+      #{unit,jdbcType=VARCHAR}, #{sex,jdbcType=VARCHAR}, #{depart,jdbcType=VARCHAR}, 
+      #{birthday,jdbcType=VARCHAR}, #{location,jdbcType=VARCHAR}, #{iphone,jdbcType=VARCHAR}, 
+      #{picture,jdbcType=LONGVARBINARY})
+  </insert>
+    
+</mapper>

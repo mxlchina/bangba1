@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.bangba.chat.mapper.NoticeMapper">
+	<resultMap type="com.bangba.chat.pojo.Notice" id="noticeMap">
+		<result column="notice" property="notice" />
+		<result column="announcement" property="announcement" />
+	</resultMap>
+	<select id="find" parameterType="String" resultMap="noticeMap">
+		select * from
+		(
+		(select NOTICE from tb_notice t order by t.update_time desc LIMIT 1 )
+		as a,
+		(select d.announcement from tb_announcement D order by
+		d.update_time
+		desc LIMIT 1) as b) ;
+	</select>
+</mapper>
