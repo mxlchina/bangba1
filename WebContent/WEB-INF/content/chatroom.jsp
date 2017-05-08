@@ -56,6 +56,9 @@ body {
     float:left;
     border:0px;
 }
+.fontRed{
+    color:red;
+}
 </style>
 </head>
 <body>
@@ -122,9 +125,14 @@ body {
 						<div class="panel panel-primary">
 							<div class="panel-body" style="background-color: gray">
 								<div id="pannelTitle">
-									V2 基础设施类2,4分 <br> 小何（电话客服）工号002,50分
-									<button id="zhuandan" type="button" class="btn btn-primary">转单</button>
-									<button id="paochu" type="button" class="btn btn-primary">抛出</button>
+								    <!-- 页面显示内容 -->
+								    <div id="talkUser" style="float:left">
+								    </div>
+								    <div id="titleButton" style="float:right;">
+									    <button id="zhuandan" type="button" class="btn btn-primary">转单</button>
+										<button id="paochu" type="button" class="btn btn-primary">抛出</button>
+								    </div>
+									
 								</div>
 							</div>
 						</div>
@@ -139,8 +147,44 @@ body {
 								<h3 class="panel-title" id="talktitle"></h3>
 							</div>
 							<div class="panel-body">
+							    <div  style="height: 150px; overflow-y: scroll">
+							        <ul class="nav nav-tabs">
+							            <li class="active"><a href="#tab1" data-toggle="tab">创建问题</a></li>
+							            <li><a href="#tab2" data-toggle="tab">问题列表</a></li>
+							        </ul>
+							        <div id="myTabContent" class="tab-content">
+							            <div class="tab-pane fade in active" id="tab1">
+							            <table class="table">
+							                <caption></caption>
+							                <tr>
+							                    <td>姓名</td> <td><input type="text" name="username"></td>
+							                    <td>单位</td> <td><input type="text" name="workunit"></td> 
+							                    <td>人员编号</td><td><input type="text" name="workno"></td>
+							                </tr>
+							                  <tr>
+							                    <td>姓名</td> <td><input type="text" name="username"></td>
+							                    <td>单位</td> <td><input type="text" name="workunit"></td> 
+							                    <td>人员编号</td><td><input type="text" name="workno"></td>
+							                </tr>
+							                  <tr>
+							                    <td>姓名</td> <td><input type="text" name="username"></td>
+							                    <td>单位</td> <td><input type="text" name="workunit"></td> 
+							                    <td>人员编号</td><td><input type="text" name="workno"></td>
+							                </tr>
+							                  <tr>
+							                    <td>姓名</td> <td><input type="text" name="username"></td>
+							                    <td>单位</td> <td><input type="text" name="workunit"></td> 
+							                    <td>人员编号</td><td><input type="text" name="workno"></td>
+							                </tr>
+							            </table>
+							            </div>
+							            <div class="tab-pane fade" id="tab2">
+							            tab2
+							            </div>
+							        </div>
+							    </div>
 								<div class="well" id="log-container"
-									style="height: 400px; overflow-y: scroll"></div>
+									style="height: 250px; overflow-y: scroll"></div>
 								<input type="text" id="myinfo" class="form-control col-md-12" />
 								<br>
 								<button id="send" type="button" class="btn btn-primary">发送</button>
@@ -169,8 +213,11 @@ body {
 		</div>
 		<!-- DIV ROW end -->
 	</div>
+	
+	
 	<!-- container end -->
 	<script>
+	var talkTitle;
     $(document).ready(function() {
         // 指定websocket路径
         var websocket;
@@ -196,8 +243,7 @@ body {
             		 // $("#users").append('<a href="#" onclick="talk(this)" class="list-group-item" >'+ '<img  class="userImg1" src="image/toto1.png" alt="用户头像" /><div style="float:left">'
             			//	 + data.text+'</a');
             		
-            		$("#users").append('<div href="#"  class="list-group-item">'+ '<img class="userImg1" src="image/toto1.png" alt="用户头像" />'+data.text+'</div>');
-            		//onclick="talk(this)"
+            		$("#users").append( '<div onclick="talk(this)"  class="list-group-item">' + '<img class="userImg" src="image/toto1.png" alt="用户头像" />'+data.text+'</div><div style="clear:both"/> ');
             		//alert(data.text+"上线了");
             	}
             }else if(data.from==-2){//下线消息
@@ -213,8 +259,8 @@ body {
     		for(var i=0;i<data.length;i++)
     			//$("#users").append('<a href="#" onclick="talk(this)" class="list-group-item" >'+ '<img class="userImg1" src="image/toto1.png" alt="用户头像" /></a>'+data[i]+'</a>');
     			
-    			$("#users").append('<div href="#"  class="list-group-item">'+ '<img class="userImg1" src="image/toto1.png" alt="用户头像" />' +data[i]+'</div>');
-    			//onclick="talk(this)"
+    			$("#users").append('<div  onclick="talk(this)" class="list-group-item"> ' +'<img class="userImg" src="image/toto1.png" alt="用户头像" />'+data[i]+'</div><div style="clear:both"/> ');
+    			
         });
         
         $("#broadcast").click(function(){
@@ -225,9 +271,11 @@ body {
     });
    
    function talk(a){
-   	$("#talktitle").text("与"+a.innerHTML+"的聊天");
-   	$("body").data("to",a.innerHTML);
+	    $(a).addClass("fontRed").siblings().removeClass("fontRed");
+        $("#talktitle").html("与"+$("span",a).html()+"的聊天");
+        initTalkTitle($(a).html());
    }
+   
    function scrollToBottom(){
 		var div = document.getElementById('log-container');
 		div.scrollTop = div.scrollHeight;
@@ -255,7 +303,10 @@ body {
                      }  
                   });  
 	 }); 
-   
+    
+    function initTalkTitle(data){
+    	$("#talkUser").html(data);
+    }
 </script>
 </body>
 </html>
