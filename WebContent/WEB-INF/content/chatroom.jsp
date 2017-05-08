@@ -218,7 +218,7 @@ body {
 	<!-- container end -->
 	<script>
 	var talkTitle;
-    $(document).ready(function() {
+    $(document).ready(function() { 
         // 指定websocket路径
         var websocket;
         if ('WebSocket' in window) {
